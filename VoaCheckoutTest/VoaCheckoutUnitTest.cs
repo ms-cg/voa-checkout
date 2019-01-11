@@ -9,6 +9,9 @@ namespace VoaCheckoutTest
     [TestClass]
     public class VoaCheckoutUnitTest
     {
+        private const String A = "Apple";
+        private const String O = "Orange";
+
         /// <summary>
         /// Perform the 'act' and 'assert' processes common to all unit tests in this class.
         /// </summary>
@@ -27,7 +30,7 @@ namespace VoaCheckoutTest
         public void OneAppleIs60p()
         {
             // Arrange
-            String[] items = { "Apple" };
+            String[] items = { A };
             int expectation = 60;
 
             // Act, Assert
@@ -38,7 +41,7 @@ namespace VoaCheckoutTest
         public void TwoApplesAre120p()
         {
             // Arrange
-            String[] items = { "Apple", "Apple" };
+            String[] items = { A, A };
             int expectation = 120;
 
             // Act, Assert
@@ -49,7 +52,7 @@ namespace VoaCheckoutTest
         public void OneOrangeIs25p()
         {
             // Arrange
-            String[] items = { "Orange" };
+            String[] items = { O };
             int expectation = 25;
 
             // Act, Assert
@@ -60,7 +63,7 @@ namespace VoaCheckoutTest
         public void TwoOrangesAre50p()
         {
             // Arrange
-            String[] items = { "Orange", "Orange" };
+            String[] items = { O, O };
             int expectation = 50;
 
             // Act, Assert
@@ -71,7 +74,7 @@ namespace VoaCheckoutTest
         public void OneAppleAndOneOrangeIs85p()
         {
             // Arrange
-            String[] items = { "Apple", "Orange" };
+            String[] items = { A, O };
             int expectation = 85;
 
             // Act, Assert
