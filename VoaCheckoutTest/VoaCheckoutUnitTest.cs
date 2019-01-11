@@ -26,6 +26,10 @@ namespace VoaCheckoutTest
             Assert.AreEqual(expectation, totalPrice);
         }
 
+        // ////////////////////////////////////////////
+        // Only Apples
+        // ////////////////////////////////////////////
+
         [TestMethod]
         public void OneAppleIs60p()
         {
@@ -38,15 +42,41 @@ namespace VoaCheckoutTest
         }
 
         [TestMethod]
-        public void TwoApplesAre120p()
+        public void TwoApplesAre60p()
         {
             // Arrange
             String[] items = { A, A };
+            int expectation = 60;
+
+            // Act, Assert
+            CommonActAssert(items, expectation);
+        }
+
+        [TestMethod]
+        public void ThreeApplesAre120p()
+        {
+            // Arrange
+            String[] items = { A, A, A };
             int expectation = 120;
 
             // Act, Assert
             CommonActAssert(items, expectation);
         }
+
+        [TestMethod]
+        public void FourApplesAre120p()
+        {
+            // Arrange
+            String[] items = { A, A, A, A };
+            int expectation = 120;
+
+            // Act, Assert
+            CommonActAssert(items, expectation);
+        }
+
+        // ////////////////////////////////////////////
+        // Only Oranges
+        // ////////////////////////////////////////////
 
         [TestMethod]
         public void OneOrangeIs25p()
@@ -71,11 +101,81 @@ namespace VoaCheckoutTest
         }
 
         [TestMethod]
+        public void ThreeOrangesAre50p()
+        {
+            // Arrange
+            String[] items = { O, O, O };
+            int expectation = 50;
+
+            // Act, Assert
+            CommonActAssert(items, expectation);
+        }
+
+        [TestMethod]
+        public void FourOrangesAre75p()
+        {
+            // Arrange
+            String[] items = { O, O, O, O };
+            int expectation = 75;
+
+            // Act, Assert
+            CommonActAssert(items, expectation);
+        }
+
+        [TestMethod]
+        public void FiveOrangesAre100p()
+        {
+            // Arrange
+            String[] items = { O, O, O, O, O };
+            int expectation = 100;
+
+            // Act, Assert
+            CommonActAssert(items, expectation);
+        }
+
+        [TestMethod]
+        public void SixOrangesAre100p()
+        {
+            // Arrange
+            String[] items = { O, O, O, O, O, O };
+            int expectation = 100;
+
+            // Act, Assert
+            CommonActAssert(items, expectation);
+        }
+
+        // ////////////////////////////////////////////
+        // Mix of Apples and Oranges
+        // ////////////////////////////////////////////
+
+        [TestMethod]
         public void OneAppleAndOneOrangeIs85p()
         {
             // Arrange
             String[] items = { A, O };
             int expectation = 85;
+
+            // Act, Assert
+            CommonActAssert(items, expectation);
+        }
+
+        [TestMethod]
+        public void TwoApplesAndTwoOrangesIs110p()
+        {
+            // Arrange
+            String[] items = { A, O, A, O };   // (In mixed order)
+            int expectation = 110;
+
+            // Act, Assert
+            CommonActAssert(items, expectation);
+        }
+
+        [TestMethod]
+        public void ThreeApplesAndThreeOrangesIs170p()
+        {
+            // Arrange
+            String[] items = { A, O, A, O, A, O };   // (In mixed order)
+            int expectation = 170;
 
             // Act, Assert
             CommonActAssert(items, expectation);
