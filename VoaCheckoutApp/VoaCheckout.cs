@@ -12,6 +12,9 @@ namespace VoaCheckout
 
         /// <summary>
         /// Calucate the combined total price of the given items.
+        /// Note: applies the following discounts:
+        ///  - Apples: Buy-one-get-one-free
+        ///  - Oranges: Buy-two-get-one-free
         /// </summary>
         /// <param name="items">Arrary of items represented as Strings.
         /// Permitted values are "Apple" and "Orange"; any other item is simply ignored.
@@ -19,22 +22,51 @@ namespace VoaCheckout
         /// <returns>Total price of the items, in pence.</returns>
         public static int GetTotalPrice(String[] items)
         {
-            int total = 0;
+            int appleCount = 0;
+            int orangeCount = 0;
 
-            // Walk through the items
+            // Walk through the items and count each type
             foreach (string currItem in items)
             {
-                // Add appropriate price to total, according to type of item
                 switch (currItem)
                 {
                     case "Apple":
-                        total += APPLE_PRICE;
+                        appleCount++;
                         break;
                     case "Orange":
-                        total += ORANGE_PRICE;
+                        orangeCount++;
                         break;
                     // default: Ignore any other type of item
                 }
+            }
+
+            // Calc and return the total price
+            return GetXForYAdjustedTotal(2, 1, appleCount, APPLE_PRICE) + GetXForYAdjustedTotal(3, 2, orangeCount, ORANGE_PRICE);
+        }
+
+        /// <summary>
+        /// Generic 'X-for-the-price-of-Y' calcuator.
+        /// (E.g. 3-for-2, 2-for-1)
+        /// </summary>
+        private static int GetXForYAdjustedTotal(int x, int y, int itemCount, int unitPrice)
+        {
+            int total = 0;
+            int nonDiscounted = itemCount % x;
+
+            // One or more 'extra' items not included in a X-for-Y discount grouping
+            if (nonDiscounted > 0)
+            {
+                // Add price of the 'extras' on to the total
+                total = nonDiscounted * unitPrice;
+                // ...and remove from the item count
+                itemCount -= nonDiscounted;
+            }
+
+            // Some items remaining (discounted groups)
+            if (itemCount > 0)
+            {
+                // Remaining total is Y/X fraction of the grand total (having already removed the 'extras')
+                total += (int)((itemCount * unitPrice) * ((float)y / x));
             }
 
             return total;
